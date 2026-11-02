@@ -1,4 +1,4 @@
-﻿
+
 using UdonSharp;
 using UnityEngine;
 using VRC.SDKBase;
@@ -25,12 +25,14 @@ namespace UdonVR.RecordPlayer
             _End();
         }
 
+        public void _OnVideoEnd() => _onVideoEnd();
         public void _onVideoEnd()
         {
             //Debug.Log("[RecordPlayer][Vizvid] _onVideoEnd");
             _PlaybackEnded();
         }
 
+        public void _OnVideoStart() => _onVideoStart();
         public void _onVideoStart()
         {
             //Debug.Log("[RecordPlayer][Vizvid] _onVideoStart");
@@ -42,6 +44,8 @@ namespace UdonVR.RecordPlayer
             //Debug.Log("[RecordPlayer][Vizvid] _OnVolumeChange");
             recordPlayer.volumeSlider._Internal_UpdateValue(_GetVolume(), false);
         }
+
+        public void _OnVideoError() { _PlaybackEnded(); }
 
         //##############################################################################################################
 
@@ -72,7 +76,16 @@ namespace UdonVR.RecordPlayer
         public override void _loopCurrentUrl()
         {
             //Debug.Log("[RecordPlayer][Vizvid] _loopCurrentUrl");
-            vizVid.Progress = 0f;
+            if (vizVid.State == 0) // VizVid unloaded the URL on OnVideoEnd()
+            {
+                isExpectingUrl = true;
+                RecordPlayer_Disk disk = recordPlayer.records[recordPlayer.currentRecord];
+                _LoadUrl(disk.urls[recordPlayer.currentTrack]);
+            }
+            else // Video is still loaded (e.g., manual Next Track wrap-around)
+            {
+                vizVid.Progress = 0f;
+            }
         }
         public override void _LoadUrl(VRCUrl _url)
         {
