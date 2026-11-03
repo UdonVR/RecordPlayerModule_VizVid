@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4648262914626054030}
   - component: {fileID: 6545122266139240107}
   m_Layer: 0
-  m_Name: RecordPlayerVideoModual - VizVid
+  m_Name: RecordPlayerModule-VizVid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
