@@ -6,7 +6,7 @@ Compatibility hook bridging the **UdonVR Record Player** (`RecordPlayer_Videopla
 
 | Capability | Status | Implementation Details |
 | :--- | :---: | :--- |
-| **Editor Auto-Setup** | `None` | Requires manual inspector assignment |
+| **Editor Auto-Setup** | `Full` | Supported via `RecordPlayerAutoSetup` editor script |
 | **Load URL** | `Full` | Calls `vizVid.PlayUrl(_url, playerType)` |
 | **External Load Detection** | `Full` | `_onVideoStart()` (and `_OnVideoStart()` alias) triggers `_OnVideoLoad()` |
 | **Play / Pause / Stop** | `Full` | Uses `vizVid.Play()`, `vizVid.Pause()`, and `vizVid.Stop()` |
@@ -34,7 +34,7 @@ Compatibility hook bridging the **UdonVR Record Player** (`RecordPlayer_Videopla
   "scriptPath": "RecordPlayer_VideoPlayer_VizVid.cs",
   "className": "UdonVR.RecordPlayer.RecordPlayer_VideoPlayer_VizVid",
   "baseClass": "UdonVR.RecordPlayer.RecordPlayer_VideoplayerClass",
-  "autoSetup": false,
+  "autoSetup": true,
   "requiredNamespaces": [
     "JLChnToZ.VRC.VVMW"
   ],
@@ -59,7 +59,7 @@ Compatibility hook bridging the **UdonVR Record Player** (`RecordPlayer_Videopla
     }
   ],
   "capabilities": {
-    "autoSetup": "none",
+    "autoSetup": "full",
     "loadUrl": "full",
     "externalLoadDetection": "full",
     "playPauseStop": "full",
@@ -72,7 +72,6 @@ Compatibility hook bridging the **UdonVR Record Player** (`RecordPlayer_Videopla
     "customTitleMetadata": "none"
   },
   "notes": [
-    "No auto-setup support; requires manual inspector references.",
     "Includes both lowercase (_onVideoStart, _onVideoEnd) and PascalCase (_OnVideoStart, _OnVideoEnd) event hooks for VizVid compatibility.",
     "VizVid Core does not implement player locking; _CanPlayVideo() always returns true.",
     "_SetTitle() is not implemented."
